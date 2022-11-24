@@ -45,8 +45,6 @@ VERBOSE=0
 
 ### CONSTANTS below
 
-# kubectl exec
-KUBECTL_CMD="kubectl"
 # systemctl exec
 SYSTEMCTL_CMD="systemctl"
 
@@ -55,7 +53,7 @@ KANTO_CMD="kanto-cm"
 KANTO_CM_HOME_DIR=/var/lib/container-management
 KANTO_CM_LOG_FILE=json.log
 KANTO_SOCK=/run/container-management/container-management.sock
-KANTO_LOG_LINES=20
+KANTO_LOG_LINES=$LOG_LINES
 
 COL_NC='\e[39m'
 COL_RED='\e[31m'
@@ -95,30 +93,6 @@ check_service()
 	fi
 }
 
-check_pod()
-{
-	local pod="$1"
-	local required="$2"
-
-	RESULT=$( $KUBECTL_CMD describe pod $pod 2>/dev/null )
-	local status=$( echo "$RESULT" | grep "Status:"  | cut -d ':' -f 2 | xargs )
-	local ready=$(  echo "$RESULT" | grep "  Ready " | awk '{ print $2 }' )
-
-	if [ "$status" = "Running" ] && [ "$ready" = "True" ]; then
-		printf -- "$TEXT_OK\n"
-	else
-		local err_msg="(N/A)"
-		if [ -n "$status" ] || [ -n "$ready" ]; then
-			err_msg="(Status: \"$status\", Ready: $ready)"
-		fi
-		if [ "$required" = "true" ]; then
-			printf -- "$TEXT_FAIL\t $err_msg"
-		else
-			printf -- "$TEXT_NOTICE\t $err_msg"
-		fi
-	fi
-}
-
 check_rc() {
 	local STATUS=$( $* 2>&1 1>/dev/null )
 	rc=$?
@@ -129,28 +103,6 @@ check_rc() {
 		[ -z "$STATUS" ] && STATUS="error: $rc"
 		printf -- "$TEXT_FAIL\t %s\n" "($STATUS)"
 	fi
-}
-
-check_pod_logs()
-{
-	local pod="$1"
-	local prefix="$2"
-
-	# 1st find containers for pod, then tail each container's logs
-	printf -- "$SEPARATOR\n" | prefix "[$prefix]"
-	printf -- "${COL_YELLOW}$ $KUBECTL_CMD get pod $pod -o jsonpath=\"{.spec.containers[*].name}\" ${COL_NC}\n" | prefix "[$prefix]"
-	local containers=$( $KUBECTL_CMD get pod $pod -o jsonpath="{.spec.containers[*].name}" )
-
-	if [ -z "$containers" ]; then
-		printf -- "No contaiers in $pod" | prefix "[$prefix]"
-		return 1
-	fi
-	for c in $containers; do
-		printf -- "${COL_YELLOW}$ $KUBECTL_CMD logs $pod -c $c --tail $LOG_LINES ${COL_NC}\n" | prefix "[$prefix]"
-		$KUBECTL_CMD logs $pod -c $c --tail $LOG_LINES | prefix "[$prefix/$c]"
-		printf -- "\n" | prefix "[$prefix]"
-	done
-	printf -- "$SEPARATOR\n" | prefix "[$prefix]"
 }
 
 check_service_logs()
@@ -302,8 +254,8 @@ dump_logs()
 	if [ -n "$KANTO_CM_CONTAINERS" ]; then
 		printf -- "\n${COL_WHITE}************ [Container logs] **********${COL_NC}\n\n"
 
-		for pod in $KANTO_CM_CONTAINERS; do
-			cm_get_container_logs "${pod}" $KANTO_LOG_LINES # get the last $KANTO_LOG_LINES lines of the log
+		for container in $KANTO_CM_CONTAINERS; do
+			cm_get_container_logs "${container}" $KANTO_LOG_LINES # get the last $KANTO_LOG_LINES lines of the log
 			printf -- "\n"
 		done
 	fi

@@ -143,7 +143,6 @@ prefix()
 	done
 }
 
-
 check_unix_sock() 
 {
 	local socket="$1"
@@ -221,7 +220,6 @@ check_cloudconnector_deviceid()
 		printf -- "$TEXT_FAIL\t (Mosquitto unavailable)\n"
 	fi
 }
-
 
 cm_get_container_id ()
 {

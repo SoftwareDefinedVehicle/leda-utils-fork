@@ -235,9 +235,9 @@ cm_check_logging_type ()
 
 cm_get_container_logs () # get the last n (following tail syntax) lines of a container's logs by name
 {
-	local CONT_ID=$1
+	local CONT_NAME=$1
 	local LOG_MAX_LINES=$2
-	CONT_ID=$(cm_get_container_id $CONT_ID) 	
+	CONT_ID=$(cm_get_container_id $CONT_NAME) 	
 	if [ $CONT_ID ]; then
 		LOGGING_TYPE=$(cm_check_logging_type $CONT_ID)
 		if [ $LOGGING_TYPE="json-file" ]; then # according to kanto docs logging type is either "json-file" (to json.log) or "none"

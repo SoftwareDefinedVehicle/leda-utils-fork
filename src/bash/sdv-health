@@ -24,8 +24,7 @@ SDV_CAN="can0"
 SDV_CAN_RADAR=""
 
 # Default list of monitored Systemd Services
-#SDV_SERVICES="k3s containerd rauc virtual-kubelet virtual-kubelet-server virtual-kubelet-classic sota-bfb-adapter"
-SDV_SERVICES="containerd rauc"
+SDV_SERVICES="containerd rauc container-management"
 
 # Default list of optional Systemd Services
 #SDV_SERVICES_OPT="vehicle-api mosquitto"

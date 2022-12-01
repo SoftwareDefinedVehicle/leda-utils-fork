@@ -85,6 +85,5 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         create(&mut client, &full_name).await?;
         full_name.clear()
     }
-
     Ok(())
 }

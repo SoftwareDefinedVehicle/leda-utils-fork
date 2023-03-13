@@ -64,4 +64,8 @@ RUN sudo apt-get -y install software-properties-common \
 # Install kas tool to set up Yocto build environment
 RUN pip3 install kas
 
+RUN cargo install cargo-deb
+
+RUN sudo apt-get -y install protobuf-compiler
+
 CMD /usr/bin/systemctl

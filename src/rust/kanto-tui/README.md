@@ -26,3 +26,12 @@ git submodule init
 git submodule update
 cargo build --release
 ```
+
+## Cross-Building
+
+```bash
+cargo install -f cross cargo-strip
+rustup target list
+cross build --release --target aarch64-unknown-linux-gnu
+cargo strip --target aarch64-unknown-linux-gnu
+```

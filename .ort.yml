@@ -1,58 +1,38 @@
 # Curation for OSS OCaaS findings. For reference, see : https://github.com/oss-review-toolkit/ort/blob/main/docs/config-file-ort-yml.md
 excludes:
   paths:
-  - pattern: "src/rust/kanto-auto-deployer/container-management/**"
-    reason: "BUILD_TOOL_OF"
-    comment: "Container management protobuffers are only used during build time and are licensed under Apache-2.0. No other parts of Container-managament are used"
-  - pattern: "src/rust/kanto-tui/container-management/**"
-    reason: "BUILD_TOOL_OF"
-    comment: "Container management protobuffers are only used during build time and are licensed under Apache-2.0. No other parts of Container-managament are used"
+    - pattern: "src/rust/kanto-auto-deployer/container-management/**"
+      reason: "BUILD_TOOL_OF"
+      comment: "Container management protobuffers are only used during build time and are licensed under Apache-2.0. No other parts of Container-Management are used"
+    - pattern: "src/rust/kanto-tui/container-management/**"
+      reason: "BUILD_TOOL_OF"
+      comment: "Container management protobuffers are only used during build time and are licensed under Apache-2.0. No other parts of Container-Management are used"
 package_configurations:
-  - id: "Cargo::kantui:0.3.0"
-    vcs:
-      type: "Git"
-      url: "https://github.com/SoftwareDefinedVehicle/leda-utils-fork.git"
-      revision: "ea38c97ce8099ab327d24a8cbfb1fd0a33a43612"
-    license_finding_curations:
-    - path: "src/rust/kanto-tui/src/kanto_api.rs"
-      start_lines: "7"
-      line_count: 2
-      detected_license: "LicenseRef-scancode-biosl-4.0"
-      concluded_license: Apache-2.0
-      reason: INCORRECT
-      comment: "Kantui and all of its submodules are licensed under Apache-2.0"
-    - path: "src/rust/kanto-tui/src/main.rs"
-      start_lines: "7"
-      line_count: 3
-      detected_license: "GPL-2.0-only"
-      concluded_license: Apache-2.0
-      reason: INCORRECT
-      comment: "Kantui and all of its submodules are licensed under Apache-2.0"
   - id: "Crate::rand_core:0.6.4"
     source_artifact_url: "https://crates.io/api/v1/crates/rand_core/0.6.4/download"
     license_finding_curations:
-    - path: "rand_core-0.6.4/LICENSE-APACHE"
-      start_lines: "7"
-      line_count: 181
-      detected_license: "ImageMagick"
-      concluded_license: "MIT OR Apache-2.0"
-      reason: INCORRECT
-      comment: "The rand_core crate is dual licensed under Apache-2.0 or MIT"
+      - path: "rand_core-0.6.4/LICENSE-APACHE"
+        start_lines: "7"
+        line_count: 181
+        detected_license: "ImageMagick"
+        concluded_license: "MIT OR Apache-2.0"
+        reason: INCORRECT
+        comment: "The rand_core crate is dual licensed under Apache-2.0 or MIT"
   - id: "Crate::windows:0.48.0"
     source_artifact_url: "https://crates.io/api/v1/crates/windows-sys/0.42.0/download"
     path_excludes:
-    - pattern: "**/**"
-      reason: "OPTIONAL_COMPONENT_OF"
-      comment: "The distribution target architectures do not include windows and the crate is dual-licensed under Apache-2.0 or MIT"
+      - pattern: "**/**"
+        reason: "OPTIONAL_COMPONENT_OF"
+        comment: "The distribution target architectures do not include windows and the crate is dual-licensed under Apache-2.0 or MIT"
     license_finding_curations:
-    - path: "windows-0.48.0/src/Windows/Win32/UI/Shell/mod.rs"
-      start_lines: "53991"
-      line_count: 1
-      detected_license: "Noweb"
-      concluded_license: "MIT OR Apache-2.0"
-      reason: INCORRECT
-      comment: "License of windows crate is Apache-2.0 OR MIT and target architectures do not include windows."
-curations:    
+      - path: "windows-0.48.0/src/Windows/Win32/UI/Shell/mod.rs"
+        start_lines: "53991"
+        line_count: 1
+        detected_license: "Noweb"
+        concluded_license: "MIT OR Apache-2.0"
+        reason: INCORRECT
+        comment: "License of windows crate is Apache-2.0 OR MIT and target architectures do not include windows."
+curations:
   packages:
     - id: "Crate::prost-build:0.10.4"
       curations:
@@ -64,13 +44,25 @@ curations:
         concluded_license: "Apache-2.0"
     - id: "Crate::windows_aarch64_msvc:0.42.2"
       curations:
-        comment:  "Wrong detection of license. Windows targets crate is licensed under MIT or Apache-2.0. https://crates.io/crates/windows-targets Additionally this tooling does not target Windows-based systems."
+        comment: "Wrong detection of license. Windows targets crate is licensed under MIT or Apache-2.0. https://crates.io/crates/windows-targets Additionally this tooling does not target Windows-based systems."
         concluded_license: "Apache-2.0"
     - id: "Crate::windows_i686_msvc:0.42.2"
       curations:
         comment: "Wrong detection of license. Windows targets crate is licensed under MIT or Apache-2.0. https://crates.io/crates/windows-targets Additionally this tooling does not target Windows-based systems."
         concluded_license: "Apache-2.0"
+    - id: "Crate::windows_x86_64_msvc:0.42.2"
+      curations:
+        comment: "Wrong detection of license. Windows targets crate is licensed under MIT or Apache-2.0. https://crates.io/crates/windows-targets Additionally this tooling does not target Windows-based systems."
+        concluded_license: "Apache-2.0"
     - id: "Crate::windows_x86_64_msvc:0.48.0"
+      curations:
+        comment: "Wrong detection of license. Windows targets crate is licensed under MIT or Apache-2.0. https://crates.io/crates/windows-targets Additionally this tooling does not target Windows-based systems."
+        concluded_license: "Apache-2.0"
+    - id: "Crate::windows_aarch64_msvc:0.48.0"
+      curations:
+        comment: "Wrong detection of license. Windows targets crate is licensed under MIT or Apache-2.0. https://crates.io/crates/windows-targets Additionally this tooling does not target Windows-based systems."
+        concluded_license: "Apache-2.0"
+    - id: "Crate::windows_i686_msvc:0.48.0"
       curations:
         comment: "Wrong detection of license. Windows targets crate is licensed under MIT or Apache-2.0. https://crates.io/crates/windows-targets Additionally this tooling does not target Windows-based systems."
         concluded_license: "Apache-2.0"
@@ -81,7 +73,7 @@ curations:
     - id: "Crate::tokio:1.27.0"
       curations:
         comment: "Wrong detection of README file which are not included in final build."
-        concluded_license: "MIT"   
+        concluded_license: "MIT"
     - id: "Crate::tokio-macros:2.0.0"
       curations:
         comment: "Wrong detection of README and LICENSE files which are not included in final build."
@@ -94,13 +86,38 @@ curations:
       curations:
         comment: "Wrong detection of README and LICENSE files which are not included in final build."
         concluded_license: "MIT"
-    - id: "Crate::ryu:1.0.13"
+    - id: "Crate::async-stream:0.3.4"
       curations:
-        comment: "Wrong detection of README file which is not included in final build."
-        concluded_license: "Apache-2.0"   
+        comment: "Wrong detection of README and LICENSE files which are not included in final build."
+        concluded_license: "MIT"
+    - id: "Crate::axum:0.5.17"
+      curations:
+        comment: "Wrong detection of README and LICENSE files which are not included in final build."
+        concluded_license: "MIT"
+    - id: "Crate::tokio-util:0.7.7"
+      curations:
+        comment: "Wrong detection of README and LICENSE files which are not included in final build."
+        concluded_license: "MIT"
+    - id: "Crate::tracing-attributes:0.1.23"
+      curations:
+        comment: "Wrong detection of README and LICENSE files which are not included in final build."
+        concluded_license: "MIT"
+    - id: "Crate::windows:0.48.0"
+      curations:
+        comment: "Wrong detection of README, LICENSE files. Improper detection of of variables/traits/functions as License names. Windows crate is licensed under MIT or Apache-2.0. Windows based systems are not targeted by this utility."
+        concluded_license: "MIT OR Apache-2.0"
+    - id: "Crate::windows:0.48.0"
+      curations:
+        comment: "Wrong detection of README, LICENSE files. Improper detection of of variables/traits/functions as License names. Windows crate is licensed under MIT or Apache-2.0. Windows based systems are not targeted by this utility."
+        concluded_license: "MIT OR Apache-2.0"
+    - id: "Cargo::kantui:0.3.0"
+      curations:
+        comment: "Kantui and all of its sources are explicitly licensed under Apache-2.0 with appropriate SPDX identifiers"
+        concluded_license: "Apache-2.0"
+
 license_choices:
   repository_license_choices:
-  - given: "GPL-2.0-or-later OR MIT"
-    choice: "MIT"
-  - given: "MIT OR GPL-2.0-only"
-    choice: "MIT"
+    - given: "GPL-2.0-or-later OR MIT"
+      choice: "MIT"
+    - given: "MIT OR GPL-2.0-only"
+      choice: "MIT"

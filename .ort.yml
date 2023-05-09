@@ -44,8 +44,34 @@ package_configurations:
     - pattern: "**/**"
       reason: "OPTIONAL_COMPONENT_OF"
       comment: "The distribution target architectures do not include windows and the crate is dual-licensed under Apache-2.0 or MIT"
-
+    license_finding_curations:
+    - path: "windows-0.48.0/src/Windows/Win32/UI/Shell/mod.rs"
+      start_lines: "53991"
+      line_count: 1
+      detected_license: "Noweb"
+      concluded_license: "MIT OR Apache-2.0"
+      reason: INCORRECT
+      comment: "License of windows crate is Apache-2.0 OR MIT and target architectures do not include windows."
+curations:    
+  packages:
+    - id: "Crate::prost-build:0.10.4"
+      curations:
+        comment: "Licenses were scanned manually in source and effective licenses are concluded.  GPL-3.0-or-later WITH Autoconf-exception-2.0 applies only to ax_pthread.m4 which is a thid-party build dependency of prost-build."
+        concluded_license: "Apache-2.0"
+    - id: "Crate::bytes:1.4.0"
+      curations:
+        comment: "Wrong detection of README file."
+        concluded_license: "Apache-2.0"
+    - id: "Crate::windows_aarch64_msvc:0.42.2"
+      curations:
+        comment: "Wrong detection of license files."
+        concluded_license: "Apache-2.0"
+        
 license_choices:
   repository_license_choices:
   - given: "GPL-2.0-or-later OR MIT"
     choice: "MIT"
+  - given: "MIT OR GPL-2.0-only"
+    choice: "MIT"
+  - given: "LicenseRef-scancode-elastic-license-v2 OR SSPL-1.0"
+    choice: "LicenseRef-scancode-elastic-license-v2"

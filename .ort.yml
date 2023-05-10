@@ -9,6 +9,9 @@ excludes:
     - pattern: "src/rust/kanto-tui/container-management/**"
       reason: "BUILD_TOOL_OF"
       comment: "Container management protobuffers are only used during build time and are licensed under Apache-2.0. No other parts of Container-Management are used"
+    - pattern: ".devcontainer/**"
+      reason: "BUILD_TOOL_OF"
+      comment: "Dev container scripts are only used during development inside codespaces/vs code devcontainers. All Leda-utils provided scripts are licensed explicitly under Apache-2.0."
 package_configurations:
   - id: "Crate::rand_core:0.6.4"
     source_artifact_url: "https://crates.io/api/v1/crates/rand_core/0.6.4/download"
@@ -37,6 +40,8 @@ package_configurations:
 curations:
   license_findings:
   - path: "src/rust/kanto-tui/src/main.rs"
+    start_lines: "7"
+    line_count: 3
     detected_license: "GPL-2.0-only"
     reason: "INCORRECT"
     comment:  "Kantui and all of its sources are explicitly licensed under Apache-2.0 with appropriate SPDX identifiers"
@@ -57,15 +62,12 @@ curations:
     comment:  "Leda shell utilities are explicitly licensed under Apache-2.0 with appropriate SPDX identifiers"
     concluded_license: "Apache-2.0"
   - path: "src/sh/sdv-health"
+    start_lines: "14"
+    line_count: 3
     detected_license: "LicenseRef-scancode-biosl-4.0"
     reason: "INCORRECT"
     comment:  "Leda shell utilities are explicitly licensed under Apache-2.0 with appropriate SPDX identifiers"
     concluded_license: "Apache-2.0"
-  - path: ".devcontainer/post-start.sh"
-    detected_license: "LicenseRef-scancode-biosl-4.0"
-    reason: "INCORRECT"
-    comment:  "The Leda-utils devcontainer post-start script is explicitly licensed under Apache-2.0 with appropriate SPDX identifiers"
-    concluded_license: "Apache-2.0"  
   - path: "src/tests/sdv-ctr-exec-tests.bats"
     detected_license: "LicenseRef-scancode-biosl-4.0"
     reason: "INCORRECT"

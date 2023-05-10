@@ -20,26 +20,6 @@ package_configurations:
         concluded_license: "MIT OR Apache-2.0"
         reason: INCORRECT
         comment: "The rand_core crate is dual licensed under Apache-2.0 or MIT"
-  - id: "Cargo::kantui:0.3.0"
-    vcs:
-      type: "Git"
-      url: "https://github.com/SoftwareDefinedVehicle/leda-utils-fork.git"
-    license_finding_curations:
-    - path: "src/rust/kanto-tui/src/main.rs"
-      start_lines: "7"
-      line_count: 3
-      detected_license: "GPL-2.0-only"
-      concluded_license: Apache-2.0
-      reason: INCORRECT
-      comment: "Kantui and all of its components are licensed under Apache-2.0 with proper SPDX identifiers for each file"
-    - path: "src/rust/kanto-tui/src/kanto_api.rs"
-      start_lines: "7"
-      line_count: 2
-      detected_license: "LicenseRef-scancode-biosl-4.0"
-      concluded_license: Apache-2.0
-      reason: INCORRECT
-      comment: "Kantui and all of its components are licensed under Apache-2.0 with proper SPDX identifiers for each file"
-
   - id: "Crate::windows:0.48.0"
     source_artifact_url: "https://crates.io/api/v1/crates/windows-sys/0.42.0/download"
     path_excludes:

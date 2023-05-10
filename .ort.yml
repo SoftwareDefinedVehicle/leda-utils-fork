@@ -35,6 +35,17 @@ package_configurations:
         reason: INCORRECT
         comment: "License of windows crate is Apache-2.0 OR MIT and target architectures do not include windows."
 curations:
+  license_findings:
+  - path: "src/rust/kanto-tui/src/main.rs"
+    detected_license: "GPL-2.0-only"
+    reason: "INCORRECT"
+    comment:  "Kantui and all of its sources are explicitly licensed under Apache-2.0 with appropriate SPDX identifiers"
+    concluded_license: "Apache-2.0"
+  - path: "src/rust/kanto-tui/src/kanto_api.rs"
+    detected_license: "LicenseRef-scancode-biosl-4.0"
+    reason: "INCORRECT"
+    comment:  "Kantui and all of its sources are explicitly licensed under Apache-2.0 with appropriate SPDX identifiers"
+    concluded_license: "Apache-2.0"
   packages:
     - id: "Crate::prost-build:0.10.4"
       curations:

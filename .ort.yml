@@ -40,8 +40,6 @@ package_configurations:
 curations:
   license_findings:
   - path: "src/rust/kanto-tui/src/main.rs"
-    start_lines: "7"
-    line_count: 3
     detected_license: "GPL-2.0-only"
     reason: "INCORRECT"
     comment:  "Kantui and all of its sources are explicitly licensed under Apache-2.0 with appropriate SPDX identifiers"
@@ -62,9 +60,7 @@ curations:
     comment:  "Leda shell utilities are explicitly licensed under Apache-2.0 with appropriate SPDX identifiers"
     concluded_license: "Apache-2.0"
   - path: "src/sh/sdv-health"
-    start_lines: "14"
-    line_count: 3
-    detected_license: "LicenseRef-scancode-biosl-4.0"
+    detected_license: "GPL-2.0-only"
     reason: "INCORRECT"
     comment:  "Leda shell utilities are explicitly licensed under Apache-2.0 with appropriate SPDX identifiers"
     concluded_license: "Apache-2.0"
@@ -92,6 +88,11 @@ curations:
     detected_license: "LicenseRef-scancode-biosl-4.0"
     reason: "INCORRECT"
     comment:  "BATS tests for Leda Shell utilities are explicitly licensed under Apache-2.0 with appropriate SPDX identifiers"
+    concluded_license: "Apache-2.0"
+  - path: ".devcontainer/post-start.sh"
+    detected_license: "GPL-2.0-only"
+    reason: "INCORRECT"
+    comment: "Dev container scripts are only used during development inside codespaces/vs code devcontainers. All Leda-utils provided scripts are licensed explicitly under Apache-2.0."
     concluded_license: "Apache-2.0"
   packages:
     - id: "Crate::prost-build:0.10.4"
